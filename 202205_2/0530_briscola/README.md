@@ -1,0 +1,35 @@
+# Creazione gioco di carta briscola in JS
+## Regole 
+- 2-4 giocatori, per semplicità progetteremo il gioco considerandone solo 2 
+- Un mazzo contiene 40 carte 
+    - Uno (Asso), Due, Tre, Quattro, Cinque, Sei, Sette, Fante, Cavallo, Re 
+    - 4 semi (fiori,picche cuori, quadri)
+    - 10 figure 
+    - Ogni figura ha un *valore*, e una *potenza*
+- Inizializzazione 
+    - Il mazzo viene mischiato
+    - Vengono distribuite 3 carte ad ogni giocatore, tipicamente in maniera alernata
+    - Viene mostrata e posizionata sotto al mazzo la briscola, ovvero il seme preponderante della partita;
+- Turni
+    - In ogni turno, ogni giocatore gioca una carta (in modo sequenziale ed ordinato: il giocatore successivo deve aspettare che giochino quelli prima di lui)
+    - Comincia chi non ha mischiato il mazzo (in questo caso, sorteggieremo il giocatore in maniera casuale)
+    - Alla fine del turno, viene calcolato chi ha vinto la mano secondo le regole riportate sotto 
+    - Chi ha vinto la mano, si porta a casa tutto il tavolo
+- Regole di presa 
+    - Ogni carta ha una potenza, in particolare:
+        - Asso > Tre > Re > Cavallo > Fante > Sette > Sei > Cinque > Quattro > Due
+    - La briscola, prende a discapito della potenza di qualsiasi a carta (ex. il 2 di briscola prende su un asso non di briscola)
+    - Nel caso di due briscole, si segue la regola di potenza sopra 
+- Obiettivo
+    - Fare più punti possibile, tipicamente portandosi a casa il maggior numero di mani vincenti
+- Valore 
+    - Asso: 11
+    - Tre: 10
+    - Re: 4 
+    - Cavallo: 3 
+    - Fante: 2 
+    - Tutto il resto: 0
+- Conclusione
+    - Il Mazzo non ha più carte
+    - I giocatori non hanno più carte in mano
+    - Si calcolano i punti che ogni giocatore ha portato a casa, sommando il *valore* di ciascuna carta  
