@@ -7,13 +7,6 @@
 //Potenza Asso>Tre>Re>Cavallo>Fante>Sette>Sei>Cinque>Quattro>Due
 //10>9>8>7....
 
-// const giacomo = [ { name: 'Erik', age: 25 }, 7, 90, 56, 80, 10, 25, 8, 9 ];
-// console.log(giacomo.length);
-//Utilizzato per gestire liste (elenco di elementi)
-//Indentificati dall'indice = dalla posizione
-//Il primo elemento ha sempre indice 0
-//L'ultimo elemento ha sempre indice array.length-1 (lunghezza dell'array -1)
-
 //Devo generare un mazzo di carte da briscola = devo accoppiare ogni seme ad ogni figura
 //mi servono i cicli => perche1 devo scorrere entrambi gli array
 
