@@ -1,0 +1,27 @@
+body{
+    margin:0;
+    padding: 0;
+    width: 100%;
+}
+
+
+.card-container{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 20px;
+
+}
+
+.exchangeinfo__card{
+    border: 1px solid black;
+    padding: 4px;
+    width: 30%;
+}
+.card-footer{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
