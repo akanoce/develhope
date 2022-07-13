@@ -1,0 +1,69 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+.cards-container {
+  width: 100%;
+  padding: 8px 12px;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+
+}
+
+.vehicle-card{
+  width: 30%;
+  margin-top: 24px;
+  border-radius: 12px;
+  border: 1px solid black;
+  padding: 8px 12px;
+  display: flex;
+  flex-direction: column;
+}
+
+.vehicle-card__header, .vehicle-card__footer{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.vehicle-card__footer{
+  margin-top: 12px;
+}
+
+.vehicle-card span{
+  border: 1px solid black;
+  border-radius: 25px;
+  padding: 4px;
+}
+
+.vehicle-card__header span:first-child{
+  background-color: black;
+  color: white;
+}
+
+.vehicle-card__header span:last-child{
+  background-color: white;
+  color: black;
+}
+
+.vehicle-card__footer__engine span:nth-child(2){
+  margin-left: 8px;
+}
+
+
