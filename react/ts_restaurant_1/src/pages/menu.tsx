@@ -1,16 +1,17 @@
+import { DataContext, useData } from "context/dataContext"
 import { useFetch } from "hooks/useFetch"
+import { useContext } from "react"
 import { MenuCategoryModel, MenuItemModel } from "types"
 
 export default function Menu() {
 
-    const { loading, error, data: menu } = useFetch<MenuItemModel[]>('/menu')
-    const { loading: categoryLoading, error: categoryError, data: categories } = useFetch<MenuCategoryModel[]>('/categories')
+    const { categories, categoriesLoading, categoriesError, menuLoading, menuError, menu, ordersLoading, ordersError, orders } = useData()
 
     return (
         <div className="menu_container">
-            {(loading || categoryLoading) && <h1>Loading ...</h1>}
-            {(error || categoryError) && <h1>Errore nel fetch ...</h1>}
-            {(menu && categories) && menu.map(item => <MenuItem item={item} categories={categories} />)}
+            {(menuLoading || categoriesLoading) && <h1>Loading ...</h1>}
+            {(menuError || ordersError) && <h1>Errore nel fetch ...</h1>}
+            {menu.map(item => <MenuItem item={item} categories={categories} />)}
         </div>
     )
 }
