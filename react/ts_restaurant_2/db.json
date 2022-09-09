@@ -99,6 +99,10 @@
 				{
 					"productId": 6,
 					"qty": 3
+				},
+				{
+					"productId": 9,
+					"qty": 3
 				}
 			],
 			"id": 4

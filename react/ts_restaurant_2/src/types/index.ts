@@ -1,9 +1,9 @@
-export type MenuCategory = {
+export type MenuCategoryModel = {
     id: number
     name: string
 }
 
-export type MenuItem = {
+export type MenuItemModel = {
     id: number
     name: string
     price: number
@@ -11,14 +11,14 @@ export type MenuItem = {
     category_id: number
 }
 
-export type Order = {
+export type OrderModel = {
     userId: number,
     status: number,
-    products: ProductInOrder[],
+    products: ProductInOrderModel[],
     id: number
 }
 
-export type ProductInOrder = {
+export type ProductInOrderModel = {
     productId: number,
     qty: number
 }

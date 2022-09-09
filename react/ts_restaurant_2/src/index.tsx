@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom/client';
 import './styles/index.css';
 import Router from './router';
 import { BrowserRouter } from 'react-router-dom'
+import { Container } from './components/layout';
 
 
 const root = ReactDOM.createRoot(
@@ -11,7 +12,9 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <BrowserRouter>
-      <Router />
+      <Container>
+        <Router />
+      </Container>
     </BrowserRouter>
   </React.StrictMode>
 );

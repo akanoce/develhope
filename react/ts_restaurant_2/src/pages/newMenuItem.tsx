@@ -1,7 +1,7 @@
 import { useState } from "react"
 import useFetch from "../hooks/useFetch"
 import useLazyFetch from "../hooks/useLazyFetch"
-import { MenuCategory, MenuItem } from "../types"
+import { MenuCategoryModel, MenuItemModel } from "../types"
 
 type NewMenuItemForm =
     {
@@ -12,8 +12,8 @@ type NewMenuItemForm =
     }
 
 export function NewMenuItem() {
-    const { data: categories, loading, error } = useFetch<MenuCategory[]>('/categories')
-    const { data: newProduct, trigger: newProductRequest } = useLazyFetch<MenuItem>('/menu')
+    const { data: categories, loading, error } = useFetch<MenuCategoryModel[]>('/categories')
+    const { data: newProduct, trigger: newProductRequest } = useLazyFetch<MenuItemModel>('/menu')
 
     const [name, setName] = useState('')
     const [formState, setFormState] = useState<NewMenuItemForm>(
