@@ -1,3 +1,60 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
+@layer components {
+
+    button {
+        @apply bg-blue-500 px-2 py-1 text-white rounded hover:bg-white hover:text-blue-500 border border-blue-500 transition-all disabled:opacity-50 disabled:bg-blue-500 disabled:text-white
+    }
+    input {
+        @apply w-full border text-center border-slate-400 focus:border-blue-500 hover:border-blue-300 rounded transition-all cursor-pointer px-2 py-1
+    }
+    nav.navbar {
+        @apply w-full px-2 py-1 bg-slate-400 flex justify-between items-center
+    }
+    
+    nav.navbar .left_nav {
+        @apply flex items-center gap-2
+    }
+
+    .menuitem_card, .order_card { 
+        @apply w-30 cursor-pointer border-black border mt-6 rounded-xl flex flex-col items-start justify-start
+    }
+
+}
+    
+
+
+.nav_item{
+    padding: 4px;
+    background-color: bisque;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all .5s ease;
+}
+
+.nav_item:hover{
+    background: lightblue;
+}
+
+.nav_item.active {
+    background-color: dodgerblue;
+}
+
 *{
     margin: 0;
     padding: 0;
@@ -25,16 +82,7 @@
     justify-content: space-between;
 }
 
-.menuitem_card, .order_card { 
-    width: 30%;
-    border: 1px solid black;
-    margin-top: 24px;
-    border-radius: 12px;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    justify-content: flex-start;
-}
+
 
 .order_card{
     padding: 8px 12px;
@@ -80,35 +128,4 @@
 .menuitem_card .img_container {
     width: 100%;
     
-}
-
-nav.navbar {
-    width: 100%;
-    padding: 8px 12px;
-    background-color: lightslategrey;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-nav.navbar .left_nav {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-}
-
-.nav_item{
-    padding: 4px;
-    background-color: bisque;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: all .5s ease;
-}
-
-.nav_item:hover{
-    background: lightblue;
-}
-
-.nav_item.active {
-    background-color: dodgerblue;
 }

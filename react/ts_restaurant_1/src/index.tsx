@@ -14,7 +14,7 @@ root.render(
   <React.StrictMode>
     <BrowserRouter>
       <DataContextProvider>
-        <CartContextProvider>
+        <CartContextProvider >
           <Container>
             <Router />
           </Container>

@@ -1,6 +1,7 @@
+import InsertProductInCart from "components/dialog"
 import { DataContext, useData } from "context/dataContext"
 import { useFetch } from "hooks/useFetch"
-import { useContext } from "react"
+import { useContext, useState } from "react"
 import { MenuCategoryModel, MenuItemModel } from "types"
 
 export default function Menu() {
@@ -16,13 +17,17 @@ export default function Menu() {
     )
 }
 
-export function MenuItem({ item, categories }: { item: MenuItemModel, categories: MenuCategoryModel[] }) {
+
+export type MenuItemProps = { item: MenuItemModel, categories: MenuCategoryModel[] }
+export function MenuItem({ item, categories }: MenuItemProps) {
+    let [isInsertDialogOpen, setIsInsertDialogOpen] = useState<boolean>(false)
 
     const productCategory = categories.find(cat => cat.id === item.category_id)
 
     return (
         <>
-            <div className="menuitem_card">
+            <InsertProductInCart isOpen={isInsertDialogOpen} closeModal={() => setIsInsertDialogOpen(false)} product={item} />
+            <div className="menuitem_card" onClick={() => setIsInsertDialogOpen(true)}>
                 <div className="img_container">
                     <img src={item.img} alt={`${item.name} img`} />
                 </div>

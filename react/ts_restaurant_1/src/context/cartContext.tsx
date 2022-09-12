@@ -1,5 +1,5 @@
 import { useFetch } from "hooks/useFetch";
-import React, { createContext, useCallback, useContext, useState } from "react";
+import React, { createContext, useCallback, useContext, useReducer, useState } from "react";
 import { MenuCategoryModel, MenuItemModel, OrderModel } from "types";
 import { useData } from "./dataContext";
 
@@ -9,7 +9,19 @@ export type CartItem = { productId: number, qty: number }
 
 export type CartContextProps = {
     cart: CartItem[],
-    setCart: (cart: CartItem[]) => void
+    dispatchCart: (action: Action<CartItem>) => void
+}
+
+type Action<T> = {
+    type: 'insert',
+    payload: T
+} |
+{
+    type: 'remove',
+    payload: T
+} |
+{
+    type: 'reset',
 }
 
 
@@ -17,13 +29,32 @@ export const CartContext = createContext<CartContextProps | undefined>(undefined
 
 export function CartContextProvider({ children }: { children: React.ReactNode }) {
 
-    const [cart, setCart] = useState<CartItem[]>([])
+    function reducer(state: CartItem[], action: Action<CartItem>) {
+        switch (action.type) {
+            case 'insert':
+                return [...state, action.payload]
+            case 'remove':
+                const productInCart = state.find(entry => entry.productId === action.payload.productId)
+                if (!productInCart)
+                    return state
+                if (action.payload.qty - productInCart.qty >= 0)
+                    return state.filter(prod => prod.productId === action.payload.productId)
+                else {
+                    productInCart.qty -= action.payload.qty
+                    return state
+                }
+            case 'reset':
+                return []
+        }
+    }
+
+    const [state, dispatch] = useReducer(reducer, [])
 
     return (
         <CartContext.Provider
             value={{
-                cart,
-                setCart
+                cart: state,
+                dispatchCart: dispatch
             }}>
             {children}
 
