@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@headlessui/react": "^1.7.1",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.3.0",
     "@testing-library/user-event": "^13.5.0",
@@ -42,7 +43,10 @@
     ]
   },
   "devDependencies": {
+    "autoprefixer": "^10.4.9",
     "json-server": "^0.17.0",
-    "json-server-auth": "^2.1.0"
+    "json-server-auth": "^2.1.0",
+    "postcss": "^8.4.16",
+    "tailwindcss": "^3.1.8"
   }
 }

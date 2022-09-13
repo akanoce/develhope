@@ -4,6 +4,8 @@ import './styles/index.css';
 import Router from './router';
 import { BrowserRouter } from 'react-router-dom'
 import { Container } from './components/layout';
+import { DataContextProvider } from './context/dataContext';
+import { CartContextProvider } from './context/cartContext';
 
 
 const root = ReactDOM.createRoot(
@@ -12,9 +14,13 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <BrowserRouter>
-      <Container>
-        <Router />
-      </Container>
+      <DataContextProvider>
+        <CartContextProvider>
+          <Container>
+            <Router />
+          </Container>
+        </CartContextProvider>
+      </DataContextProvider>
     </BrowserRouter>
   </React.StrictMode>
 );

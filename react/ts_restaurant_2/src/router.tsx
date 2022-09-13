@@ -7,7 +7,6 @@ export default function Router() {
 
 
     return (
-
         <Routes>
             <Route path='menu'>
                 <Route index element={<Menu />} />
@@ -16,8 +15,6 @@ export default function Router() {
             <Route path='orders' element={<Orders />} />
             <Route path='*' element={<Navigate to='/menu' replace={true} />} />
         </Routes>
-
-
     )
 
 

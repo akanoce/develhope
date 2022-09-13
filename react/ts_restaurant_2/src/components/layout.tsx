@@ -1,5 +1,7 @@
 import React from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+import { useCart } from "../context/cartContext";
+import { useData } from "../context/dataContext";
 
 
 export function Container({ children }: { children: React.ReactNode }) {
@@ -40,7 +42,18 @@ export function NavBar() {
     const location = useLocation()
     const navigate = useNavigate()
 
-    console.log(location)
+    const { cart } = useCart()
+    const { menu } = useData()
+
+    const total = cart.reduce((acc, orderItem) => {
+        const product = menu.find(item => item.id === orderItem.productId)
+        return acc + orderItem.qty * (product?.price || 0)
+    }, 0)
+
+
+
+
+
 
     return (
         <nav className="navbar">
@@ -51,7 +64,7 @@ export function NavBar() {
                 })}
             </div>
             <span className="cart">
-                Carrello
+                Carrello {total} €
             </span>
         </nav>
     )

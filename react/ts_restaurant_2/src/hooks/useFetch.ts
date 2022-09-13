@@ -9,7 +9,8 @@ type State<T> = {
 type Action<T> =
     { type: 'loading' } |
     { type: 'fetched', payload: T } |
-    { type: 'error', payload: Error }
+    { type: 'error', payload: Error } |
+    { type: 'update', payload: T }
 
 
 const baseUrl = 'http://localhost:3010'
@@ -29,6 +30,8 @@ export default function useFetch<T = unknown>(url: string, options?: RequestInit
                 return { ...state, loading: false, error: action.payload }
             case 'fetched':
                 return { ...state, loading: false, error: undefined, data: action.payload };
+            case 'update':
+                return { ...state, data: action.payload };
             default:
                 return state
         }
@@ -56,6 +59,7 @@ export default function useFetch<T = unknown>(url: string, options?: RequestInit
 
     return {
         ...state,
-        trigger: initFetch
+        trigger: initFetch,
+        dispatch
     }
 }

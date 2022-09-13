@@ -1,10 +1,11 @@
+import { useContext } from "react"
+import { useData } from "../context/dataContext"
 import useFetch from "../hooks/useFetch"
 import { MenuCategoryModel, MenuItemModel, OrderModel } from "../types"
 
 export default function Orders() {
-    const { loading: menuLoading, error: menuError, data: menu } = useFetch<MenuItemModel[]>('/menu')
-    const { loading: ordersLoading, error: ordersError, data: orders } = useFetch<OrderModel[]>('/orders')
-    const { loading: categoriesLoading, error: categoriesError, data: categories } = useFetch<MenuCategoryModel[]>('/categories')
+
+    const { orders, ordersLoading, ordersError, menu, menuLoading, menuError, categories, categoriesLoading, categoriesError } = useData()
 
     return (<>
         {(ordersLoading || categoriesLoading || menuLoading) && <h1>Loading....</h1>}
