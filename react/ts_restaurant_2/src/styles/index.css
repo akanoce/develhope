@@ -25,6 +25,10 @@ input[type=number] {
         @apply bg-blue-500 text-white hover:bg-blue-300 border border-blue-500 transition-all py-1 px-2 rounded  disabled:bg-blue-500 disabled:opacity-50
     }
 
+    .navbar .cart-badge {
+        @apply px-1 py-2 bg-slate-300 text-black rounded-xl border border-white flex items-center gap-2 hover:opacity-50 transition-all cursor-pointer 
+    }
+
 }
 
 * {
@@ -33,7 +37,7 @@ input[type=number] {
     box-sizing: border-box;
 }
 
-.container {
+.page-container {
     padding: 8px 16px;
 }
 
@@ -73,14 +77,7 @@ input[type=number] {
     background-color: white;
 }
 
-.navbar .cart {
-    padding: 4px 8px;
-    background-color: whitesmoke;
-    color: black;
-    border-radius: 12px;
-    border: 1px solid white;
 
-}
 
 img {
     max-width: 100%;

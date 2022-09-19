@@ -9,7 +9,7 @@ type CartContextProps = {
     dispatch: (value: Action<ProductInOrderModel>) => void
 }
 
-type Action<T> = {
+export type Action<T> = {
     type: 'reset'
 } |
 {
@@ -26,6 +26,7 @@ const CartContext = createContext<CartContextProps | undefined>(undefined)
 export function CartContextProvider({ children }: { children: React.ReactNode }) {
 
     function cartReducer(state: ProductInOrderModel[], action: Action<ProductInOrderModel>) {
+        console.log(state, action)
         switch (action.type) {
             case 'reset':
                 return []
@@ -33,7 +34,9 @@ export function CartContextProvider({ children }: { children: React.ReactNode })
                 const productExist = state.findIndex(el => el.productId === action.payload.productId)
                 if (productExist !== -1) { // aggiorno la quantità del prodotto che trovo
                     const stateCopy = [...state]
+                    console.log(stateCopy[productExist].qty)
                     stateCopy[productExist].qty += action.payload.qty
+                    console.log(stateCopy[productExist].qty)
                     return stateCopy
                 }
                 else // inserisco il nuovo prodotto

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import InsertProductDialog from "../components/dialog"
+import { InsertProductDialog } from "../components/dialog"
 import { useData } from "../context/dataContext"
 import useFetch from "../hooks/useFetch"
 import { MenuCategoryModel, MenuItemModel } from "../types"
