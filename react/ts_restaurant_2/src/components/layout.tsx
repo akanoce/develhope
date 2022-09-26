@@ -45,7 +45,7 @@ export function NavBar() {
     const navigate = useNavigate()
 
     const { cart, dispatch } = useCart()
-    const { menu } = useData()
+    const { menu, orders } = useData()
 
     const [isCartOpen, setIsCartOpen] = useState<boolean>(false)
 
@@ -56,11 +56,15 @@ export function NavBar() {
 
     return (
         <nav className="navbar">
-            <CartDialog isOpen={isCartOpen} closeModal={() => setIsCartOpen(false)} cart={cart} menu={menu} dispatch={dispatch}/>
+            <CartDialog isOpen={isCartOpen} closeModal={() => setIsCartOpen(false)} cart={cart} menu={menu} dispatch={dispatch} />
             <div className="left">
                 {Menu.map(item => {
                     const isActive = location.pathname.includes(item.url)
-                    return <span onClick={() => navigate(item.url)} className={`navbar_item ${isActive && 'active'} `}>{item.name}</span>
+
+                    return <span onClick={() => navigate(item.url)} className={`navbar_item relative ${isActive && 'active'} `}>
+                        {item.name}
+                        {item.url === 'orders' && <span className="block absolute -top-3 px-1 py-0.5 -right-3 rounded-full bg-red-500 text-white text-sm">{orders.length}</span>}
+                    </span>
                 })}
             </div>
             <button className='cart-badge' onClick={() => setIsCartOpen(true)}>

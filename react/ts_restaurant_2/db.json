@@ -40,7 +40,7 @@
     {
       "id": 2,
       "name": "Hamburger",
-      "price": "9",
+      "price": 9,
       "img": "https://media-assets.lacucinaitaliana.it/photos/61fae7f75f740bfb879f54e8/3:2/w_1500,h_1000,c_limit/iStock-636305290.jpg",
       "category_id": 1
     },
@@ -218,7 +218,42 @@
       "id": 12
     },
     {
+      "products": [
+        {
+          "productId": 2,
+          "qty": 3
+        },
+        {
+          "productId": 3,
+          "qty": 3
+        }
+      ],
+      "status": "pending",
       "id": 13
+    },
+    {
+      "products": [
+        {
+          "productId": 2,
+          "qty": 3
+        },
+        {
+          "productId": 3,
+          "qty": 3
+        }
+      ],
+      "status": "pending",
+      "id": 14
+    },
+    {
+      "products": [
+        {
+          "productId": 2,
+          "qty": 2
+        }
+      ],
+      "status": "pending",
+      "id": 15
     }
   ]
 }

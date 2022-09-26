@@ -1,4 +1,5 @@
 import { useEffect, useReducer } from "react"
+import { z } from 'zod'
 
 type State<T> = {
     loading: boolean,
@@ -14,7 +15,7 @@ type Action<T> =
 
 
 const baseUrl = 'http://localhost:3010'
-export default function useFetch<T = unknown>(url: string, options?: RequestInit) {
+export default function useFetch<T = unknown>(url: string, validationSchema?: z.ZodTypeAny, options?: RequestInit) {
 
     const initialState: State<T> = {
         loading: false,
@@ -44,7 +45,13 @@ export default function useFetch<T = unknown>(url: string, options?: RequestInit
             dispatch({ type: 'loading' })
             const res = await fetch(baseUrl + url, options)
             const json = await res.json()
-            dispatch({ type: 'fetched', payload: json })
+            if (validationSchema) {
+                const parsed = validationSchema.parse(json)
+                dispatch({ type: 'fetched', payload: parsed })
+
+            }
+            else
+                dispatch({ type: 'fetched', payload: json })
         }
         catch (e: any) {
             console.error('useFetch', e)

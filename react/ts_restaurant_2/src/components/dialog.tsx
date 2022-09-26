@@ -1,9 +1,11 @@
 import { Dialog, Transition } from '@headlessui/react'
 import { Fragment, useState } from 'react'
 import { Action, useCart } from '../context/cartContext'
-import { MenuItemModel, ProductInOrderModel } from '../types'
+import { MenuItemModel, menuItemSchema, OrderModel, orderSchema, ProductInOrderModel } from '../types'
 import { FaCartPlus, FaClipboardCheck, FaTrashAlt } from 'react-icons/fa'
 import useLazyFetch from '../hooks/useLazyFetch'
+
+import { useData } from '../context/dataContext'
 
 export function InsertProductDialog({ isOpen, closeModal, product }: { isOpen: boolean, closeModal: () => void, product: MenuItemModel }) {
 
@@ -86,8 +88,9 @@ export function InsertProductDialog({ isOpen, closeModal, product }: { isOpen: b
 
 export function CartDialog({ isOpen, closeModal, cart, menu, dispatch }: { isOpen: boolean, closeModal: () => void, cart: ProductInOrderModel[], menu: MenuItemModel[], dispatch: (value: Action<ProductInOrderModel>) => void }) {
 
+    const { setOrders, orders } = useData()
 
-    const { trigger: triggerNewOrder } = useLazyFetch('/orders')
+    const { trigger: triggerNewOrder } = useLazyFetch<OrderModel>('/orders', orderSchema)
     const total = cart.reduce((acc, orderItem) => {
         const product = menu.find(item => item.id === orderItem.productId)
         return acc + orderItem.qty * (product?.price || 0)
@@ -99,9 +102,13 @@ export function CartDialog({ isOpen, closeModal, cart, menu, dispatch }: { isOpe
     }
 
     async function sendOrder() {
-        await triggerNewOrder({ method: 'POST', body: JSON.stringify({ products: cart, status: 'pending' }) })
-        dispatch({ type: 'reset' })
+        const newOrder = await triggerNewOrder({ method: 'POST', body: JSON.stringify({ products: cart, status: 'pending' }) })
+        if (newOrder) {
+            setOrders([...orders, newOrder])
+            dispatch({ type: 'reset' })
+        }
         closeModal()
+
     }
 
 
@@ -173,6 +180,86 @@ export function CartDialog({ isOpen, closeModal, cart, menu, dispatch }: { isOpe
                                             <span>{total}€</span>
                                         </div>
                                     }
+
+                                </Dialog.Panel>
+                            </Transition.Child>
+                        </div>
+                    </div>
+                </Dialog>
+            </Transition>
+        </>
+    )
+}
+
+export function OrderDialog({ isOpen, closeModal, order, menu }: { isOpen: boolean, closeModal: () => void, order: OrderModel, menu: MenuItemModel[] }) {
+
+    const { setOrders, orders } = useData()
+
+    const { trigger: triggerNewOrder } = useLazyFetch<OrderModel>('/orders', orderSchema)
+    const total = order.products.reduce((acc, orderItem) => {
+        const product = menu.find(item => item.id === orderItem.productId)
+        return acc + orderItem.qty * (product?.price || 0)
+    }, 0)
+
+
+
+    return (
+        <>
+            <Transition appear show={isOpen} as={Fragment}>
+                <Dialog as="div" className="relative z-10" onClose={closeModal}>
+                    <Transition.Child
+                        as={Fragment}
+                        enter="ease-out duration-300"
+                        enterFrom="opacity-0"
+                        enterTo="opacity-100"
+                        leave="ease-in duration-200"
+                        leaveFrom="opacity-100"
+                        leaveTo="opacity-0"
+                    >
+                        <div className="fixed inset-0 bg-black bg-opacity-25" />
+                    </Transition.Child>
+
+                    <div className="fixed inset-0 overflow-y-auto">
+                        <div className="flex min-h-full items-center justify-center p-4 text-center">
+                            <Transition.Child
+                                as={Fragment}
+                                enter="ease-out duration-300"
+                                enterFrom="opacity-0 scale-95"
+                                enterTo="opacity-100 scale-100"
+                                leave="ease-in duration-200"
+                                leaveFrom="opacity-100 scale-100"
+                                leaveTo="opacity-0 scale-95"
+                            >
+                                <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
+                                    <Dialog.Title
+                                        as="h3"
+                                        className="text-lg font-medium leading-6 text-gray-900"
+                                    >
+                                        Ordine #{order.id}
+                                    </Dialog.Title>
+                                    {order.products.length <= 0 ? <h3 className='my-2 font-bold text-xl text-center'>Il Carrello è vuoto!</h3>
+                                        : (
+                                            <div className='flex flex-col justify-start my-2 gap-2 '>
+                                                {order.products.map((item, idx) => {
+                                                    const product = menu.find(prod => prod.id === item.productId)
+
+                                                    return (<div key={idx}>
+                                                        <div className='flex items-center justify-between w-full'>
+                                                            <div className=''>
+                                                                <p>{product?.name || 'Prodotto non trovato'} x {item.qty}</p>
+                                                            </div>
+                                                            <p>{item.qty * (product?.price || 0)}€</p>
+                                                        </div>
+                                                        {idx < (order.products.length - 1) && <span className='w-full bg-black h-[1px] block mt-[2px]' />}
+                                                    </div>
+                                                    )
+                                                })}
+                                                <div className='flex justify-end items-center pt-2'>
+                                                    <span>{total}€</span>
+                                                </div>
+                                            </div>
+
+                                        )}
 
                                 </Dialog.Panel>
                             </Transition.Child>

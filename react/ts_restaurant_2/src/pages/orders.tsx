@@ -1,4 +1,5 @@
-import { useContext } from "react"
+import { useContext, useState } from "react"
+import { OrderDialog } from "../components/dialog"
 import { useData } from "../context/dataContext"
 import useFetch from "../hooks/useFetch"
 import { MenuCategoryModel, MenuItemModel, OrderModel } from "../types"
@@ -27,6 +28,7 @@ type ItemProps = {
 export function OrderItem({ order, categories, menu }: ItemProps) {
 
     const invalidOrderItems = []
+    const [isOpen, setIsOpen] = useState<boolean>(false)
 
     const total = order.products.reduce((acc, orderItem) => {
         const product = menu.find(item => item.id === orderItem.productId)
@@ -36,8 +38,10 @@ export function OrderItem({ order, categories, menu }: ItemProps) {
         return acc + orderItem.qty * (product?.price || 0)
     }, 0)
 
-    return (
-        <div className='card'>
+    return (<>
+        <OrderDialog isOpen={isOpen} closeModal={() => setIsOpen(false)} order={order} menu={menu} />
+        <div className='card cursor-pointer' onClick={() => setIsOpen(true)}>
+
             <div className='card__body'>
                 <h1>{order.id}</h1>
                 <div className="card__footer">
@@ -47,5 +51,6 @@ export function OrderItem({ order, categories, menu }: ItemProps) {
                 </div>
             </div>
         </div>
+    </>
     )
 }

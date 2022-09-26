@@ -1,11 +1,12 @@
-import React, { createContext, useContext } from "react";
+import React, { createContext, useContext, useEffect } from "react";
 import useFetch from "../hooks/useFetch";
-import { MenuCategoryModel, MenuItemModel, OrderModel } from "../types";
+import { MenuCategoryModel, menuCategorySchema, MenuItemModel, menuItemSchema, OrderModel, orderSchema } from "../types";
 
 
 
 type DataContextProps = {
     orders: OrderModel[],
+    setOrders: (orders: OrderModel[]) => void
     ordersLoading: boolean,
     ordersError: Error | undefined,
     menu: MenuItemModel[],
@@ -20,14 +21,14 @@ const DataContext = createContext<DataContextProps | undefined>(undefined)
 
 export function DataContextProvider({ children }: { children: React.ReactNode }) {
 
-    const { loading: menuLoading, error: menuError, data: menu } = useFetch<MenuItemModel[]>('/menu')
-    const { loading: ordersLoading, error: ordersError, data: orders, dispatch } = useFetch<OrderModel[]>('/orders')
-    const { loading: categoriesLoading, error: categoriesError, data: categories } = useFetch<MenuCategoryModel[]>('/categories')
-
+    const { loading: menuLoading, error: menuError, data: menu } = useFetch<MenuItemModel[]>('/menu', menuItemSchema.array())
+    const { loading: ordersLoading, error: ordersError, data: orders, dispatch: dispatchOrders } = useFetch<OrderModel[]>('/orders', orderSchema.array())
+    const { loading: categoriesLoading, error: categoriesError, data: categories } = useFetch<MenuCategoryModel[]>('/categories', menuCategorySchema.array())
 
     return (
         <DataContext.Provider value={{
             orders: orders || [],
+            setOrders: (newOrders: OrderModel[]) => dispatchOrders({ type: 'fetched', payload: newOrders }),
             ordersLoading,
             ordersError,
             menu: menu || [],

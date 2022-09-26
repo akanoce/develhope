@@ -1,4 +1,5 @@
 import { useEffect, useReducer } from "react"
+import { z } from "zod"
 
 type State<T> = {
     loading: boolean,
@@ -13,7 +14,7 @@ type Action<T> =
 
 
 const baseUrl = 'http://localhost:3010'
-export default function useLazyFetch<T = unknown>(url: string) {
+export default function useLazyFetch<T = unknown>(url: string, validationSchema?: z.ZodTypeAny,) {
 
     const initialState: State<T> = {
         loading: false,
@@ -36,16 +37,31 @@ export default function useLazyFetch<T = unknown>(url: string) {
 
     const [state, dispatch] = useReducer(fetchReducer, initialState)
 
-    async function initFetch(options?: RequestInit) {
+    async function initFetch(options?: RequestInit): Promise<T | undefined> {
         try {
             dispatch({ type: 'loading' })
+            if (options?.body)
+                if (options.headers)
+                    options.headers = { ...options.headers, 'Content-Type': 'application/json' }
+                else
+                    options.headers = { 'Content-Type': 'application/json' }
+
             const res = await fetch(baseUrl + url, options)
             const json = await res.json()
-            dispatch({ type: 'fetched', payload: json })
+            if (validationSchema) {
+                const parsed = validationSchema.parse(json)
+                dispatch({ type: 'fetched', payload: parsed })
+                return parsed as T
+
+            }
+            else
+                dispatch({ type: 'fetched', payload: json })
+            return json as T
         }
         catch (e: any) {
             console.error('useFetch', e)
             dispatch({ type: 'error', payload: e })
+            return undefined
         }
     }
 
