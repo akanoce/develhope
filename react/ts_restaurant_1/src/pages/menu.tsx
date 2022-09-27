@@ -1,7 +1,6 @@
-import InsertProductInCart from "components/dialog"
-import { DataContext, useData } from "context/dataContext"
-import { useFetch } from "hooks/useFetch"
-import { useContext, useState } from "react"
+import { InsertProductInCart } from "components/dialog"
+import { useData } from "context/dataContext"
+import { useState } from "react"
 import { MenuCategoryModel, MenuItemModel } from "types"
 
 export default function Menu() {

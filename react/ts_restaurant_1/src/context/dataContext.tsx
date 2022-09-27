@@ -1,5 +1,6 @@
 import { useFetch } from "hooks/useFetch";
 import React, { createContext, useCallback, useContext } from "react";
+import { OrderSchema } from "schema/index.schema";
 import { MenuCategoryModel, MenuItemModel, OrderModel } from "types";
 
 //in questo context, devo gestire errrore, caricametno e dati di menu + ordini 
@@ -22,7 +23,7 @@ export const DataContext = createContext<DataContextProps | undefined>(undefined
 
 export function DataContextProvider({ children }: { children: React.ReactNode }) {
     const { loading: categoriesLoading, error: categoriesError, data: categories } = useFetch<MenuCategoryModel[]>('/categories')
-    const { loading: ordersLoading, error: ordersError, data: orders } = useFetch<OrderModel[]>('/orders')
+    const { loading: ordersLoading, error: ordersError, data: orders } = useFetch<OrderModel[]>('/orders', OrderSchema)
     const { loading: menuLoading, error: menuError, data: menu } = useFetch<MenuItemModel[]>('/menu')
 
     return (

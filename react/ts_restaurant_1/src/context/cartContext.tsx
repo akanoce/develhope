@@ -5,7 +5,10 @@ import { useData } from "./dataContext";
 
 //in questo context, devo gestire errrore, caricametno e dati di menu + ordini 
 
-export type CartItem = { productId: number, qty: number }
+export type CartItem = {
+    productId: number,
+    qty: number
+}
 
 export type CartContextProps = {
     cart: CartItem[],
@@ -31,9 +34,17 @@ export function CartContextProvider({ children }: { children: React.ReactNode })
 
     function reducer(state: CartItem[], action: Action<CartItem>) {
         switch (action.type) {
-            case 'insert':
-                return [...state, action.payload]
-            case 'remove':
+            case 'insert': {
+                const productInCartIndex = state.findIndex(item => item.productId === action.payload.productId)
+                if (productInCartIndex === -1)
+                    return [...state, action.payload]
+                else {
+                    const stateCopy = [...state]
+                    stateCopy[productInCartIndex].qty += action.payload.qty
+                    return stateCopy
+                }
+            }
+            case 'remove': {
                 const productInCart = state.find(entry => entry.productId === action.payload.productId)
                 if (!productInCart)
                     return state
@@ -43,6 +54,7 @@ export function CartContextProvider({ children }: { children: React.ReactNode })
                     productInCart.qty -= action.payload.qty
                     return state
                 }
+            }
             case 'reset':
                 return []
         }

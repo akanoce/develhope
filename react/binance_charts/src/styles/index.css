@@ -1,0 +1,11 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+@layer components {
+
+    select {
+        @apply px-2 py-1 bg-white text-black border border-black rounded
+    }
+}

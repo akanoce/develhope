@@ -1,5 +1,4 @@
 import { useEffect, useReducer, useState } from "react"
-import { z } from "zod"
 
 type State<T> = {
     loading: boolean,
@@ -21,8 +20,8 @@ type Action<T> =
     }
 
 
-const baseUrl = 'http://localhost:3010'
-export function useFetch<T = unknown>(url: string, schema?: z.ZodObject<any>) {
+    const baseUrl =  'https://api.binance.com'
+export function useLazyFetch<T = unknown>(url: string) {
 
     const initalState: State<T> = {
         loading: false,
@@ -43,12 +42,11 @@ export function useFetch<T = unknown>(url: string, schema?: z.ZodObject<any>) {
 
     const [state, dispatch] = useReducer(reducer, initalState)
 
-    async function initFetch() {
+    async function initFetch(options?: RequestInit, queryParams?: URLSearchParams) {
         try {
             dispatch({ type: 'loading' })
-            const res = await fetch(baseUrl + url)
+            const res = await fetch(baseUrl + url + queryParams, options)
             const json = await res.json()
-            schema && schema.parse(json)
             if (!res.ok)
                 dispatch({ type: 'error', payload: json })
             else
@@ -60,9 +58,8 @@ export function useFetch<T = unknown>(url: string, schema?: z.ZodObject<any>) {
         }
     }
 
-    useEffect(() => {
-        initFetch()
-    }, [])
-
-    return state
+    return {
+        ...state,
+        trigger: initFetch
+    }
 }

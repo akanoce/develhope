@@ -2,6 +2,8 @@ import { useCart } from "context/cartContext";
 import { useData } from "context/dataContext";
 import React, { useEffect, useState } from "react";
 import { useNavigate, useLocation } from 'react-router-dom'
+import { CartDialog } from "./dialog";
+import { HiShoppingCart } from 'react-icons/hi'
 
 export default function Container({ children }: { children: React.ReactNode }) {
 
@@ -10,7 +12,7 @@ export default function Container({ children }: { children: React.ReactNode }) {
     return (
         <>
             <NavBar />
-            <div className='container'>
+            <div className='page-container'>
                 {children}
             </div>
         </>
@@ -36,6 +38,8 @@ export function NavBar() {
     const { cart } = useCart()
     const { menu } = useData()
 
+    const [isOpen, setIsOpen] = useState<boolean>(false)
+
     useEffect(() => {
         console.log(location.pathname)
     }, [location])
@@ -48,12 +52,15 @@ export function NavBar() {
 
     return (
         <nav className="navbar">
-            <div className="left_nav">
+            <CartDialog isOpen={isOpen} closeModal={() => setIsOpen(false)} menu={menu} />
+            <div className="flex items-center gap-2">
                 {NavItems.map(item => <span onClick={() => navigate(item.url)} className={`nav_item ${location.pathname.includes(item.url) && 'active'}`}>{item.name}</span>)}
             </div>
-            <div className="right_nav">
-                <span>Carrello ({cartTotal}€)</span>
-            </div>
+            <button className="flex flex-row items-center gap-2" onClick={() => setIsOpen(true)}>
+                <HiShoppingCart />
+                <p>{cartTotal}€</p>
+            </button>
+
         </nav>
     )
 }

@@ -26,10 +26,6 @@ input[type=number] {
     nav.navbar {
         @apply w-full px-2 py-1 bg-slate-400 flex justify-between items-center
     }
-    
-    nav.navbar .left_nav {
-        @apply flex items-center gap-2
-    }
 
     .menuitem_card, .order_card { 
         @apply w-30 cursor-pointer border-black border mt-6 rounded-xl flex flex-col items-start justify-start
@@ -61,7 +57,7 @@ input[type=number] {
     box-sizing: border-box;
 }
 
-.container {
+.page-container {
     width: 100%;
     padding: 12px 24px;
     
