@@ -1,0 +1,171 @@
+{
+  "users": [
+    {
+      "email": "olivier@mail.com",
+      "password": "$2a$10$oIe3IHw8ITBfj3W4yOUBU.cphe8X0uTh/o6C7U5e.JJoZMFXSitoe",
+      "id": 1
+    },
+    {
+      "email": "erik@prova.it",
+      "password": "$2a$10$oBo1ZmDLTkgxxDLFDv2F.eR/Rs4qwDsyq9TkyF4/hlWP.Zvj/Hq/i",
+      "id": 2
+    }
+  ],
+  "categories": [
+    {
+      "id": 1,
+      "name": "Piatti caldi"
+    },
+    {
+      "id": 2,
+      "name": "Piatti freddi"
+    },
+    {
+      "id": 3,
+      "name": "Bevande"
+    }
+  ],
+  "menu": [
+    {
+      "id": 1,
+      "name": "Pizza Margherita",
+      "price": 6,
+      "img": "https://thumbs.dreamstime.com/b/pizza-58914487.jpg",
+      "category_id": 1
+    },
+    {
+      "id": 2,
+      "name": "Hamburger",
+      "price": "9",
+      "img": "https://media-assets.lacucinaitaliana.it/photos/61fae7f75f740bfb879f54e8/3:2/w_1500,h_1000,c_limit/iStock-636305290.jpg",
+      "category_id": 1
+    },
+    {
+      "id": 3,
+      "name": "Caprese",
+      "price": 7,
+      "img": "https://media-assets.lacucinaitaliana.it/photos/62a99392745318cb493d342e/16:9/w_2560%2Cc_limit/1371874164",
+      "category_id": 2
+    },
+    {
+      "id": 4,
+      "name": "Prosciutto e melone",
+      "price": 8,
+      "img": "https://blog.giallozafferano.it/ricettepanedolci/wp-content/uploads/2017/08/prosciutto-e-melone.jpg",
+      "category_id": 2
+    },
+    {
+      "id": 5,
+      "name": "Gin Tonic",
+      "price": 8,
+      "img": "https://static.cookist.it/wp-content/uploads/sites/21/2018/08/gin-tonic.jpg",
+      "category_id": 3
+    },
+    {
+      "id": 6,
+      "name": "Campari",
+      "price": 4,
+      "img": "https://www.gustissimo.it/articoli/drink/cocktail-pre-dinner/spritz-campari.jpg",
+      "category_id": 3
+    },
+    {
+      "id": 7,
+      "name": "Acqua Naturale",
+      "price": 1.5,
+      "img": "https://www.comunicaffe.it/wp-content/uploads/2018/12/bicchiere-dacqua.jpg",
+      "category_id": 3
+    },
+    {
+      "id": 8,
+      "name": "Acqua Frizzante",
+      "price": 1.5,
+      "img": "https://www.informazioneoggi.it/wp-content/uploads/2022/08/acqua-frizzante.jpg",
+      "category_id": 3
+    }
+  ],
+  "orders": [
+    {
+      "userId": 1,
+      "status": 0,
+      "products": [
+        {
+          "productId": 1,
+          "qty": 3
+        },
+        {
+          "productId": 6,
+          "qty": 3
+        }
+      ],
+      "id": 4
+    },
+    {
+      "userId": 1,
+      "status": 0,
+      "products": [
+        {
+          "productId": 1,
+          "qty": 3
+        },
+        {
+          "productId": 6,
+          "qty": 3
+        }
+      ],
+      "id": 5
+    },
+    {
+      "userId": 1,
+      "status": "pending",
+      "products": [
+        {
+          "productId": 1,
+          "qty": 3
+        },
+        {
+          "productId": 6,
+          "qty": 3
+        }
+      ],
+      "id": 6
+    },
+    {
+      "userId": 1,
+      "status": 0,
+      "products": [
+        {
+          "productId": 1,
+          "qty": 3
+        },
+        {
+          "productId": 6,
+          "qty": 3
+        }
+      ],
+      "id": 7
+    },
+    {
+      "products": [
+        {
+          "productId": 1,
+          "qty": 1
+        }
+      ],
+      "id": 8
+    },
+    {
+      "products": [
+        {
+          "productId": 1,
+          "qty": 2
+        },
+        {
+          "productId": 3,
+          "qty": 1
+        }
+      ],
+      "status": "pending",
+      "id": 9
+    }
+  ]
+}
